@@ -48,27 +48,6 @@ public class MenuManger : MonoBehaviour
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
-
-    // Starting MENU
-    public void StartGame()
-    {
-       // SceneManager.LoadScene()  //TODO load Game
-    }
-
-    public void Help()
-    {
-        //TODO load Text "du musst alle vasen kaputt machen"
-    }
-
-    public void Quit()
-    {
-        
-    }
-
-    public void Settings()
-    {
-       // TODO UI settings
-    }
-
-
 }
+
+   
