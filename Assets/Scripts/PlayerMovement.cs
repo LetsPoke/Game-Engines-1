@@ -20,22 +20,24 @@ public class PlayerMovement : MonoBehaviour
 
     void Start(){
         currentState = PlayerState.walk;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //input
+        
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        /*
+        
         if(Input.GetButtonDown("attack") && currentState != PlayerState.attack){ 
             StartCoroutine(AttackCo());
         } else if(currentState == PlayerState.walk){
             UpdateAnimationAndMove();
         }
-        */
-        //UpdateAnimationAndMove();
+        
+        UpdateAnimationAndMove();
     }
 
     void UpdateAnimationAndMove(){
