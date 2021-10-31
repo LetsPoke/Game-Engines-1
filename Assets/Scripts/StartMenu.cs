@@ -34,7 +34,7 @@ public class StartMenu : MonoBehaviour
     // START MENU
     public void StartGame()
     {
-       SceneManager.LoadScene("Game");
+       SceneManager.LoadScene("SampleScene");
     }
 
     public void Help()
@@ -45,6 +45,7 @@ public class StartMenu : MonoBehaviour
     public void Quit()
     {
         // TODO: scene destroyn
+        Application.Quit();
     }
 
     public void Settings()
