@@ -47,3 +47,5 @@ sysinfo.txt
 *.unitypackage
 
 QCAR/somedata16
+
+.DS_Store
