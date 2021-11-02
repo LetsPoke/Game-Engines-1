@@ -9,6 +9,7 @@ TagManager:
   - ON
   - OFF
   - UI_StartMenu
+  - Menu
   layers:
   - Default
   - TransparentFX

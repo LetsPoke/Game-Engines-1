@@ -5,36 +5,43 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-    GameObject startMenu;
+    GameObject menu;
     GameObject helpUI;
     GameObject settingsUI;
 
     GameObject musicON;
     GameObject musicOFF;
 
+    public static bool musicIsOn = true;
+
+    AudioSource sound;
+
     // Start is called before the first frame update
     void Start()
     {
-        // Starting MainMenu
-        startMenu = GameObject.FindGameObjectWithTag("UI_StartMenu");
+        menu = GameObject.FindGameObjectWithTag("UI_StartMenu");
         helpUI = GameObject.FindGameObjectWithTag("UI_Help");
         settingsUI = GameObject.FindGameObjectWithTag("UI_Settings");
+        musicON = GameObject.FindGameObjectWithTag("ON");
+        musicOFF = GameObject.FindGameObjectWithTag("OFF");
 
-            startMenu.SetActive(true);
-            helpUI.SetActive(false);
-            settingsUI.SetActive(false);
+        menu.SetActive(true);
+        helpUI.SetActive(false);
+        settingsUI.SetActive(false);
+
+        sound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+ 
     }
 
-    // START MENU
     public void StartGame()
     {
-       SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("SampleScene");
+        Time.timeScale = 1f;
     }
 
     public void Help()
@@ -44,19 +51,12 @@ public class StartMenu : MonoBehaviour
 
     public void Quit()
     {
-        // TODO: scene destroyn
         Application.Quit();
     }
 
     public void Settings()
     {
         settingsUI.SetActive(true);
-        
-        musicON = GameObject.FindGameObjectWithTag("ON");
-        musicOFF = GameObject.FindGameObjectWithTag("OFF");
-
-            musicON.SetActive(true); // TODO: Error not instance of current object
-            musicOFF.SetActive(false);    
     }
 
     // Settings & Help UIS
@@ -66,23 +66,37 @@ public class StartMenu : MonoBehaviour
         helpUI.SetActive(false);
     }
 
-    public void MusicON()
+    public void Music()
     {
-        musicOFF.SetActive(true);
-        musicON.SetActive(false);
-        // TODO: musik im spiel AUS
+        if(musicIsOn)
+        {
+            // -> Musik ausschalten
+            musicOFF.SetActive(true);
+            musicON.SetActive(false);
+            musicIsOn = false;
+            sound.Stop();
+        }
+        else
+        {
+            // -> Musik anschalten
+            musicON.SetActive(true);
+            musicOFF.SetActive(false);
+            musicIsOn = true;
+            sound.Play();
+        }
     }
 
-    public void MusicOFF()
-    {
-        musicON.SetActive(true);
-        musicOFF.SetActive(false);
-        // TODO: musik im spiel AN
-       
+    // public bool getMusicIsOn()
+    // {
+    //     return musicIsOn;
+    // }
+
+    public static bool MusicIsOn
+    { 
+        get { return musicIsOn; }
+        //set { name = value; }
     }
-
-
-    
-
 
 }
+
+   
