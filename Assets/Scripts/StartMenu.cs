@@ -14,6 +14,7 @@ public class StartMenu : MonoBehaviour
 
     public static bool musicIsOn = true;
 
+    public MenuManger menumanager;
     AudioSource sound;
 
     // Start is called before the first frame update
@@ -30,6 +31,11 @@ public class StartMenu : MonoBehaviour
         settingsUI.SetActive(false);
 
         sound = GetComponent<AudioSource>();
+        sound.Play();
+
+        musicIsOn = MenuManger.MusicIsOnGame; 
+        SetMusicStatus(musicIsOn);
+        
     }
 
     // Update is called once per frame
@@ -40,6 +46,7 @@ public class StartMenu : MonoBehaviour
 
     public void StartGame()
     {
+        Debug.Log("Das Startmenu übergibt dem Game: " + MusicIsOn);
         SceneManager.LoadScene("SampleScene");
         Time.timeScale = 1f;
     }
@@ -70,26 +77,35 @@ public class StartMenu : MonoBehaviour
     {
         if(musicIsOn)
         {
-            // -> Musik ausschalten
-            musicOFF.SetActive(true);
-            musicON.SetActive(false);
-            musicIsOn = false;
-            sound.Stop();
+            // Musik an -> also ausschalten
+            SetMusicStatus(false);
         }
         else
         {
-            // -> Musik anschalten
-            musicON.SetActive(true);
-            musicOFF.SetActive(false);
-            musicIsOn = true;
-            sound.Play();
+            // Musik aus -> also anschalten
+            SetMusicStatus(true);
         }
     }
 
-    // public bool getMusicIsOn()
-    // {
-    //     return musicIsOn;
-    // }
+    public void SetMusicStatus(bool statusMusicOn){
+        
+        if (statusMusicOn) // Musik ist an
+        {
+            musicIsOn = true;
+            sound.mute = false;
+            musicON.SetActive(true);
+            musicOFF.SetActive(false);
+        }
+
+        else // Musik ist aus
+        {
+            musicIsOn = false;
+            sound.mute = true;
+            musicON.SetActive(false);
+            musicOFF.SetActive(true);
+        }
+        
+    }
 
     public static bool MusicIsOn
     { 

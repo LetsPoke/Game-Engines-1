@@ -13,7 +13,7 @@ public class MenuManger : MonoBehaviour
     GameObject musicOFF;
     
     bool gameIsPaused = false;
-    bool musicIsOn;
+    public static bool musicIsOn = true;
     
     public StartMenu startmenu;
     GameObject player;
@@ -37,16 +37,19 @@ public class MenuManger : MonoBehaviour
 
         audioGame = player.GetComponent<AudioSource>();
         audioPausenMenu = GetComponent<AudioSource>();
-        audioPausenMenu.mute = true;
-        
-        musicIsOn = StartMenu.MusicIsOn; 
-
         audioGame.Play();
         audioPausenMenu.Play();
-        if (!musicIsOn)
+        audioPausenMenu.mute = true;
+
+        musicIsOn = StartMenu.MusicIsOn; 
+        if (!musicIsOn)  // musik aus
         {
            audioGame.mute = true;
+           musicIsOn = false;
+           musicON.SetActive(false);
+           musicOFF.SetActive(true);
         }
+      
     }
 
     // Update is called once per frame
@@ -61,18 +64,9 @@ public class MenuManger : MonoBehaviour
                 }
                 else   // pause
                 {
-                    menu.SetActive(true);
-                    Time.timeScale = 0;
-                    gameIsPaused = true;
-                    if(musicIsOn) 
-                    {
-                        audioGame.mute = true;
-                        audioPausenMenu.mute = false;
-                    }
+                    Pause();
                 }
             }
-
-
     }
 
     public void Resume()
@@ -85,7 +79,18 @@ public class MenuManger : MonoBehaviour
             audioGame.mute = false;
             audioPausenMenu.mute = true;
         }
-        
+    }
+
+    public void Pause()
+    {
+        menu.SetActive(true);
+        Time.timeScale = 0;
+        gameIsPaused = true;
+        if(musicIsOn) 
+        {
+            audioGame.mute = true;
+            audioPausenMenu.mute = false;
+        }
     }
 
     public void Restart()
@@ -93,6 +98,7 @@ public class MenuManger : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
         gameIsPaused = false;
+
         if(musicIsOn) 
         {
             audioGame.mute = false;
@@ -102,6 +108,7 @@ public class MenuManger : MonoBehaviour
 
     public void Exit()
     {
+        Debug.Log("Das Game übergibt dem Startmenü: " + MusicIsOnGame);
         SceneManager.LoadScene("StartMenu");
     }
 
@@ -135,8 +142,8 @@ public class MenuManger : MonoBehaviour
             // -> Musik ausschalten
             musicOFF.SetActive(true);
             musicON.SetActive(false);
-            musicIsOn = false;  
-            Debug.Log("musik ist aus");
+            musicIsOn = false; 
+            audioPausenMenu.mute = true;
         }
         else
         {
@@ -144,8 +151,14 @@ public class MenuManger : MonoBehaviour
             musicON.SetActive(true);
             musicOFF.SetActive(false);
             musicIsOn = true; 
-            Debug.Log("musik ist an");
+            audioPausenMenu.mute = false;
         }
+    }
+
+    public static bool MusicIsOnGame
+    { 
+        get { return musicIsOn; }
+        //set { name = value; }
     }
 
 }
