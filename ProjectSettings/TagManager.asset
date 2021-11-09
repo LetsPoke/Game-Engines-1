@@ -10,6 +10,7 @@ TagManager:
   - OFF
   - UI_StartMenu
   - Menu
+  - breakable
   layers:
   - Default
   - TransparentFX
