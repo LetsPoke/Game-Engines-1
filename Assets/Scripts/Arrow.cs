@@ -16,6 +16,9 @@ public class Arrow : MonoBehaviour
             collision.GetComponent<pot>().Smash();
             sound.Play();
         }
+        if (collision.CompareTag("Enemy")) {
+            collision.GetComponent<EnemyBase>().HitEnemy();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

@@ -13,6 +13,7 @@ TagManager:
   - breakable
   - Arrows
   - Map
+  - UpgradeSystem
   layers:
   - Default
   - TransparentFX
