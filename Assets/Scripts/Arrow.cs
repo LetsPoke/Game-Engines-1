@@ -16,7 +16,7 @@ public class Arrow : MonoBehaviour
         sound = player.GetComponent<AudioSource>();
         co2 = GetComponent<Collider2D>();
         Physics2D.IgnoreCollision(co2, player.GetComponent<Collider2D>(), true);
-        Physics2D.IgnoreCollision(co2, health.GetComponent<Collider2D>(), true);
+        //Physics2D.IgnoreCollision(co2, health.GetComponent<Collider2D>(), true);
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("breakable")) {
