@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public enum PlayerState{
     walk,
     attack,
-    interact
+    interact,
+    attackBow
 }
 
 public class PlayerMovement : MonoBehaviour
@@ -15,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public PlayerState currentState;
+
+    public int health;
 
     Vector2 movement;
 
@@ -30,12 +34,24 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         
-        if(Input.GetButtonDown("attack") && currentState != PlayerState.attack){ 
+        if(Input.GetButtonDown("attack") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
+        { 
             StartCoroutine(AttackCo());
         } else if(currentState == PlayerState.walk){
             UpdateAnimationAndMove();
         }
-        
+
+        if (Input.GetButtonDown("attackBow") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
+        {
+            StartCoroutine(AttackBowCo());
+            moveSpeed = 0f; 
+        }
+        else if (currentState == PlayerState.walk)
+        {
+            moveSpeed = 5f;
+            UpdateAnimationAndMove();
+        }
+
         UpdateAnimationAndMove();
     }
 
@@ -59,9 +75,33 @@ public class PlayerMovement : MonoBehaviour
         currentState = PlayerState.walk;
     }
 
+    private IEnumerator AttackBowCo()
+    {
+        animator.SetBool("attackBow", true);
+        currentState = PlayerState.attackBow;
+        yield return null;
+        animator.SetBool("attackBow", false);
+        yield return new WaitForSeconds(0.6f);
+        currentState = PlayerState.walk;
+    }
+
     void FixedUpdate(){
         //Movement
         movement.Normalize();
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void HitPlayer() {
+        health--;
+        Debug.Log("HealthPlayer subtracted, total: " + health);
+        if (health == 0) {
+            Debug.Log("Player Dead");
+            SceneManager.LoadScene("StartMenu");
+        }
+    }
+
+    public void HealPlayer() {
+        health++;
+        Debug.Log("HealthPlayer added, total: " + health);
     }
 }

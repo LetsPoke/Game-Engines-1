@@ -11,6 +11,9 @@ TagManager:
   - UI_StartMenu
   - Menu
   - breakable
+  - Arrows
+  - Map
+  - UpgradeSystem
   layers:
   - Default
   - TransparentFX

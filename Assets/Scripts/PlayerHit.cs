@@ -21,5 +21,9 @@ public class PlayerHit : MonoBehaviour
         if (other.CompareTag("breakable")) {
             other.GetComponent<pot>().Smash();
         }
+
+        if (other.CompareTag("Enemy")) {
+            other.GetComponent<EnemyBase>().HitEnemy();
+        }
     }
 }

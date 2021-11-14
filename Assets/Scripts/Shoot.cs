@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Shoot : MonoBehaviour
+{
+    public Transform firePoint;
+    public GameObject ArrowPrefab;
+    public float shootDelay = 1f;
+    public float arrowMovement = 20f;
+
+    public void Update()
+    {
+        if (Input.GetKey("a"))
+        {
+            firePoint.transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (Input.GetKey("d"))
+        {
+            firePoint.transform.rotation = Quaternion.Euler(0, 0, 270);
+        }
+        else if (Input.GetKey("s"))
+        {
+            firePoint.transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else if (Input.GetKey("w"))
+        {
+            firePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        if (Input.GetButtonDown("attackBow"))
+        {
+            StartCoroutine(ShootDelay());
+        }
+    }
+
+    private IEnumerator ShootDelay()
+    {
+        yield return new WaitForSeconds(shootDelay);
+        Shooting();
+    }
+
+    void Shooting() 
+    {
+        GameObject arrow = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation);    // spawning Arrow at firePoint
+        Rigidbody2D arrowbody = arrow.GetComponent<Rigidbody2D>();                              // Get the body of this arrow
+        arrowbody.AddForce(firePoint.up * arrowMovement, ForceMode2D.Impulse);                  // Give Arrow Force
+    }
+}
