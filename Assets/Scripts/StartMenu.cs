@@ -47,7 +47,7 @@ public class StartMenu : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Das Startmenu übergibt dem Game: " + MusicIsOn);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("GameScene");
         Time.timeScale = 1f;
     }
 
