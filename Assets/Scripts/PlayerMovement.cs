@@ -41,9 +41,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("attackBow") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
         {
             StartCoroutine(AttackBowCo());
+            moveSpeed = 0f; 
         }
         else if (currentState == PlayerState.walk)
         {
+            moveSpeed = 5f;
             UpdateAnimationAndMove();
         }
 
