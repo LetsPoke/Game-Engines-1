@@ -20,14 +20,20 @@ public class EnemyBase : MonoBehaviour
         // WARUM FUNKTIONIERT UPDATE NICHT???????
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
+    public void HitEnemy() {
         health--;
-        Debug.Log("Ouchie " + health);
+        Debug.Log("Enemy Ouchie " + health);
         
         if (health == 0) {
             Destroy(gameObject);
-            Debug.Log("Dead");
+            Debug.Log("Enemy Dead");
         }
-
     }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if(collision.gameObject.tag == "Player") {
+            collision.collider.GetComponent<PlayerMovement>().HitPlayer();
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public enum PlayerState{
     walk,
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public PlayerState currentState;
+
+    public int health;
 
     Vector2 movement;
 
@@ -63,5 +66,19 @@ public class PlayerMovement : MonoBehaviour
         //Movement
         movement.Normalize();
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void HitPlayer() {
+        health--;
+        Debug.Log("HealthPlayer subtracted, total: " + health);
+        if (health == 0) {
+            Debug.Log("Player Dead");
+            SceneManager.LoadScene("StartMenu");
+        }
+    }
+
+    public void HealPlayer() {
+        health++;
+        Debug.Log("HealthPlayer added, total: " + health);
     }
 }

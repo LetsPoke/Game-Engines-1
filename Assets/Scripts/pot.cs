@@ -5,6 +5,8 @@ using UnityEngine;
 public class pot : MonoBehaviour
 {
     private Animator anim;
+    public UpgradeSpawner upgrade;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,14 @@ public class pot : MonoBehaviour
     {
         anim.SetBool("smash", true);
         StartCoroutine(breakCo());
+
+        int random = Random.Range(1, 10);
+        Debug.Log(random);
+
+        if(random <= 10){
+            Vector3 currentPos = transform.position;
+            upgrade.SpawnHealth(currentPos);
+        }
     }
 
     IEnumerator breakCo() 

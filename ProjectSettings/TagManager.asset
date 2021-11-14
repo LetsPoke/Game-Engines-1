@@ -11,6 +11,7 @@ TagManager:
   - UI_StartMenu
   - Menu
   - breakable
+  - Enemy
   layers:
   - Default
   - TransparentFX
