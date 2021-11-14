@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public enum PlayerState{
     walk,
     attack,
-    interact
+    interact,
+    attackBow
 }
 
 public class PlayerMovement : MonoBehaviour
@@ -33,12 +34,24 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         
-        if(Input.GetButtonDown("attack") && currentState != PlayerState.attack){ 
+        if(Input.GetButtonDown("attack") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
+        { 
             StartCoroutine(AttackCo());
         } else if(currentState == PlayerState.walk){
             UpdateAnimationAndMove();
         }
-        
+
+        if (Input.GetButtonDown("attackBow") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
+        {
+            StartCoroutine(AttackBowCo());
+            moveSpeed = 0f; 
+        }
+        else if (currentState == PlayerState.walk)
+        {
+            moveSpeed = 5f;
+            UpdateAnimationAndMove();
+        }
+
         UpdateAnimationAndMove();
     }
 
@@ -59,6 +72,16 @@ public class PlayerMovement : MonoBehaviour
         yield return null;
         animator.SetBool("attacking", false);
         yield return new WaitForSeconds(0.5f);
+        currentState = PlayerState.walk;
+    }
+
+    private IEnumerator AttackBowCo()
+    {
+        animator.SetBool("attackBow", true);
+        currentState = PlayerState.attackBow;
+        yield return null;
+        animator.SetBool("attackBow", false);
+        yield return new WaitForSeconds(0.6f);
         currentState = PlayerState.walk;
     }
 

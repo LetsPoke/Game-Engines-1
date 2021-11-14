@@ -16,7 +16,7 @@ public class MenuManger : MonoBehaviour
     public static bool musicIsOn = true;
     
     public StartMenu startmenu;
-    GameObject player;
+    GameObject map;
 
     AudioSource audioGame;
     AudioSource audioPausenMenu;
@@ -29,13 +29,13 @@ public class MenuManger : MonoBehaviour
         settingsUI = GameObject.FindGameObjectWithTag("UI_Settings");
         musicON = GameObject.FindGameObjectWithTag("ON");
         musicOFF = GameObject.FindGameObjectWithTag("OFF");
-        player = GameObject.FindGameObjectWithTag("Player");
+        map = GameObject.FindGameObjectWithTag("Map");
     
         menu.SetActive(false);
         helpUI.SetActive(false);
         settingsUI.SetActive(false);
 
-        audioGame = player.GetComponent<AudioSource>();
+        audioGame = map.GetComponent<AudioSource>();
         audioPausenMenu = GetComponent<AudioSource>();
         audioGame.Play();
         audioPausenMenu.Play();
