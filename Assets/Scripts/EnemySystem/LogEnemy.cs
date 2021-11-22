@@ -29,6 +29,7 @@ public class LogEnemy : EnemyBase
         spawnDirection.Normalize();
 
         if(Vector3.Distance(player.position, transform.position) <= chaseRadius) {
+            wakeUp();
             stateMachine = "chasing";
         } else if (
             (transform.position.x >= initialSpawnPoint.x + 0.5) ||
@@ -36,26 +37,45 @@ public class LogEnemy : EnemyBase
             (transform.position.y >= initialSpawnPoint.y + 0.5) ||
             (transform.position.y <= initialSpawnPoint.y - 0.5) ) 
         {
+            
             stateMachine = "returning";
         } else {
+            goSleep();
             stateMachine = "sleeping";
         }
 
         switch(stateMachine){
             case "sleeping":
-                //Anim for sleeping 
                 break;
-            case "chasing": 
+            case "chasing":
                 rb.MovePosition(transform.position + (direction * moveSpeed * Time.deltaTime));
-                // Anim for walking and following the Player here
+                anim.SetFloat("achseX", direction.x);
+                anim.SetFloat("achseY", direction.y);
                 break;
             case "returning":
                 rb.MovePosition(transform.position + (spawnDirection * moveSpeed * Time.deltaTime));
-                // Anim for going back to the spawn position here
+                anim.SetFloat("achseX", spawnDirection.x);
+                anim.SetFloat("achseY", spawnDirection.y);
                 break;
         }
 
     }
+
+    void wakeUp() 
+    {
+        moveSpeed = 0;
+        anim.SetBool("sleeping", false);
+        anim.SetBool("walking", true);
+        moveSpeed = 20;
+    }
+
+    void goSleep()
+    {
+        moveSpeed = 0;
+        anim.SetBool("walking", false);
+        anim.SetBool("sleeping", true);
+    }
+
 
     void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position, chaseRadius);
