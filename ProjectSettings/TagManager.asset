@@ -53,6 +53,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UnderCollider
+    uniqueID: 3197178073
+    locked: 0
+  - name: Collider
+    uniqueID: 698467457
+    locked: 0
+  - name: Rock/tree
+    uniqueID: 3876317677
+    locked: 0
   - name: Player
     uniqueID: 2580162453
+    locked: 0
+  - name: OverCollider
+    uniqueID: 638628657
     locked: 0
