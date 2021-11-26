@@ -13,7 +13,7 @@ public class CarrotEnemy : EnemyBase
 
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
        
     }
 

@@ -17,9 +17,9 @@ public class LogEnemy : EnemyBase
 
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        initialSpawnPoint = gameObject.transform.position;
+        initialSpawnPoint = transform.position;
         
     }
 
