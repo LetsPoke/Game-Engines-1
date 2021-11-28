@@ -72,6 +72,8 @@ public class MenuManger : MonoBehaviour
     public void Resume()
     {
         menu.SetActive(false);
+        helpUI.SetActive(false);
+        settingsUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
         if(musicIsOn) 

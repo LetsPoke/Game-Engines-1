@@ -30,9 +30,15 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 movement;
 
+    GameObject youDiedUI;
+
     void Start(){
         currentState = PlayerState.walk;
         animator = GetComponent<Animator>();
+
+        youDiedUI = GameObject.FindGameObjectWithTag("dead");
+        youDiedUI.SetActive(false);
+
         Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
 
         score = 0;
@@ -114,6 +120,9 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("HealthPlayer subtracted, total: " + health);
         if (health == 0) {
             Debug.Log("Player Dead");
+            Time.timeScale = 0f;
+            youDiedUI.SetActive(true);
+            StartCoroutine(Wait());
             SceneManager.LoadScene("StartMenu");
         }
     }
@@ -121,5 +130,10 @@ public class PlayerMovement : MonoBehaviour
     public void HealPlayer() {
         health++;
         Debug.Log("HealthPlayer added, total: " + health);
+    }
+
+    private IEnumerator Wait() {
+        yield return new WaitForSeconds(1.0f);
+        
     }
 }
