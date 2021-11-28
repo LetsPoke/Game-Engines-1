@@ -11,19 +11,19 @@ public class Shoot : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKey("a"))
+        if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
-        else if (Input.GetKey("d"))
+        else if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 270);
         }
-        else if (Input.GetKey("s"))
+        else if (Input.GetKey("s") || Input.GetKey(KeyCode.DownArrow))
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
-        else if (Input.GetKey("w"))
+        else if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow))
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
