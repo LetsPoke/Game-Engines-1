@@ -31,10 +31,10 @@ public class pot : MonoBehaviour
         PlayerMovement.score = PlayerMovement.score +1;
         StartCoroutine(breakCo());
 
-        int random = Random.Range(1, 10);
+        int random = Random.Range(1, 100);
         Debug.Log(random);
 
-        if(random <= 10){
+        if(random <= 33){
             Vector3 currentPos = transform.position;
             upgrade.SpawnHealth(currentPos);
         }
