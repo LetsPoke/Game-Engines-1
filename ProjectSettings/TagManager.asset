@@ -16,7 +16,6 @@ TagManager:
   - UpgradeSystem
   - Enemy
   - healthItem
-  - dead
   layers:
   - Default
   - TransparentFX

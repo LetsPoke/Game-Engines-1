@@ -67,8 +67,6 @@ public class MenuManger : MonoBehaviour
                     Pause();
                 }
             }
-
-
     }
 
     public void Resume()
