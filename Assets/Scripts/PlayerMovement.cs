@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
+using UnityEngine.UI;
 
 public enum PlayerState{
     walk,
@@ -19,17 +20,34 @@ public class PlayerMovement : MonoBehaviour
     public PlayerState currentState;
 
     public int health;
+    private int Toepfe;
+
+    public static int score; // bad coding style but ok for 1 variable
+    public Text scoreText;
+    
+    public Text ToepfeCount;
+    
 
     Vector2 movement;
 
     void Start(){
         currentState = PlayerState.walk;
         animator = GetComponent<Animator>();
+        Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
+
+        score = 0;
+        scoreText.text = "Score: " + score;
+
+        ToepfeCount.text = "Toepfe uebrig: " + Toepfe;
     }
 
     // Update is called once per frame
     void Update()
     {
+        scoreText.text = "Score: " + score;
+
+        Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
+        ToepfeCount.text = "Toepfe uebrig: " + Toepfe;
         //input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");

@@ -7,7 +7,7 @@ public class EnemyBase : MonoBehaviour
     public int health;
     public int baseAttack;
     public float moveSpeed;
-    public Vector3 initialSpawnPoint;
+    //public Vector3 initialSpawnPoint;
     // Start is called before the first frame update
     void Start()
     {
