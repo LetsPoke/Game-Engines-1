@@ -99,8 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgrade: {fileID: 7157949551101332702, guid: 46ae1eece943bfc41908f62846312aa5, type: 3}
-  score: 0
-  scoreText: {fileID: 0}
+  startTime: 300
 --- !u!61 &9127916209741073925
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class Timer : MonoBehaviour
     public float startTime;
     private bool started = false;
     private bool finnished = false;
+    public static float t; // bad coding style but ok for 2 variables
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class Timer : MonoBehaviour
             }
                 
 
-            float t =  startTime - Time.time;
+            t =  startTime - Time.time;
 
             string minutes = ((int)t / 60).ToString();
             string seconds = (t % 60).ToString("f0");

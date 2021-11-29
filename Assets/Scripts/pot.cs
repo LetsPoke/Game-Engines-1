@@ -7,7 +7,6 @@ public class pot : MonoBehaviour
 {
     private Animator anim;
     public UpgradeSpawner upgrade;
-
     //public int score = 0;
     //public Text scoreText;
 
@@ -16,7 +15,6 @@ public class pot : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         //scoreText.text = "Score: " + score;
-        
     }
 
     // Update is called once per frame
@@ -28,11 +26,11 @@ public class pot : MonoBehaviour
     public void Smash() 
     {
         anim.SetBool("smash", true);
-        PlayerMovement.score = PlayerMovement.score +1;
+        PlayerMovement.score = PlayerMovement.score + (((int)Timer.t/60)+1);
         StartCoroutine(breakCo());
 
         int random = Random.Range(1, 100);
-        Debug.Log(random);
+        //Debug.Log(random);
 
         if(random <= 33){
             Vector3 currentPos = transform.position;
