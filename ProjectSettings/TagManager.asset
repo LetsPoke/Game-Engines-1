@@ -17,6 +17,7 @@ TagManager:
   - Enemy
   - healthItem
   - Score
+  - dead
   layers:
   - Default
   - TransparentFX
