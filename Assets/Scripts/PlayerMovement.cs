@@ -13,6 +13,14 @@ public enum PlayerState{
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    private GameObject heart0;
+    private GameObject heart1;
+    private GameObject heart2;
+    private GameObject heart3;
+    private GameObject heart4;
+
+
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
@@ -26,13 +34,26 @@ public class PlayerMovement : MonoBehaviour
     public Text scoreText;
     
     public Text ToepfeCount;
-    
 
     Vector2 movement;
 
     GameObject youDiedUI;
 
     void Start(){
+        heart0 = GameObject.Find("Player");
+        heart1 = GameObject.Find("heart (1)");
+        heart2 = GameObject.Find("heart (2)");
+        heart3 = GameObject.Find("heart (3)");
+        heart4 = GameObject.Find("heart (4)");
+
+        heart0.SetActive(true);
+        heart1.SetActive(true);
+        heart2.SetActive(true);
+        heart3.SetActive(true);
+        heart4.SetActive(true);
+
+
+
         currentState = PlayerState.walk;
         animator = GetComponent<Animator>();
 
@@ -50,6 +71,31 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        switch(health){
+            case 0: break;
+            heart0.SetActive(false);
+            case 1: 
+            heart0.SetActive(true);
+            heart1.SetActive(false);
+            break;
+            case 2: 
+            heart1.SetActive(true);
+            heart2.SetActive(false);
+            break;
+            case 3: 
+            heart2.SetActive(true);
+            heart3.SetActive(false);
+            break;
+            case 4: 
+            heart3.SetActive(true);
+            heart4.SetActive(false);
+            break;
+            case 5: 
+                heart4.SetActive(true);
+                break;
+        }
+
+
         scoreText.text = "Score: " + score;
 
         Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
@@ -128,12 +174,18 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void HealPlayer() {
-        health++;
+        if (health < 5) {
+            health++;
+            }
         Debug.Log("HealthPlayer added, total: " + health);
     }
 
     private IEnumerator Wait() {
         yield return new WaitForSeconds(1.0f);
         
+    }
+
+    public int getHealth() {
+        return health;
     }
 }
