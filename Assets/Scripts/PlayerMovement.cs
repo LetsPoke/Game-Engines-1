@@ -104,8 +104,8 @@ public class PlayerMovement : MonoBehaviour
             heart4.SetActive(false);
             break;
             case 5: 
-                heart4.SetActive(true);
-                break;
+            heart4.SetActive(true);
+            break;
         }
 
 
