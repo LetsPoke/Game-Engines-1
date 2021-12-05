@@ -18,6 +18,7 @@ TagManager:
   - healthItem
   - Score
   - dead
+  - timerTag
   layers:
   - Default
   - TransparentFX

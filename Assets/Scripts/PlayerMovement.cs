@@ -189,9 +189,7 @@ public class PlayerMovement : MonoBehaviour
             HighscoreUpdate();
             Debug.Log("Player Dead");
             Time.timeScale = 0f;
-            youDiedUI.SetActive(true);
-            StartCoroutine(Wait());
-            SceneManager.LoadScene("StartMenu");
+            Die();
         }
     }
 
@@ -241,5 +239,11 @@ public class PlayerMovement : MonoBehaviour
         }
             
         File.WriteAllLines(path, line);
+    }
+
+    public void Die() {
+        StartCoroutine(Wait());
+        SceneManager.LoadScene("StartMenu");
+        youDiedUI.SetActive(true);
     }
 }

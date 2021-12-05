@@ -17,6 +17,7 @@ public class StartMenu : MonoBehaviour
     public MenuManger menumanager;
     AudioSource sound;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +36,6 @@ public class StartMenu : MonoBehaviour
 
         musicIsOn = MenuManger.MusicIsOnGame; 
         SetMusicStatus(musicIsOn);
-        
     }
 
     // Update is called once per frame
