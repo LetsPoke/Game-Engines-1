@@ -1,8 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
 using UnityEngine.UI;
+
+using System.IO;
+using System.Linq;
+using System.Net.Mime;
+using UnityEditor.VersionControl;
 
 public enum PlayerState{
     walk,
@@ -13,6 +19,14 @@ public enum PlayerState{
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    private GameObject heart0;
+    private GameObject heart1;
+    private GameObject heart2;
+    private GameObject heart3;
+    private GameObject heart4;
+
+
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
@@ -24,15 +38,34 @@ public class PlayerMovement : MonoBehaviour
 
     public static int score; // bad coding style but ok for 1 variable
     public Text scoreText;
+
+    public string highscore;
+    public Text highscoreText;
+    private string path;
     
     public Text ToepfeCount;
-    
 
     Vector2 movement;
 
     GameObject youDiedUI;
 
     void Start(){
+        path = "Assets/Scenes/HighScore.txt";
+
+        heart0 = GameObject.Find("Player");
+        heart1 = GameObject.Find("heart (1)");
+        heart2 = GameObject.Find("heart (2)");
+        heart3 = GameObject.Find("heart (3)");
+        heart4 = GameObject.Find("heart (4)");
+
+        heart0.SetActive(true);
+        heart1.SetActive(true);
+        heart2.SetActive(true);
+        heart3.SetActive(true);
+        heart4.SetActive(true);
+
+
+
         currentState = PlayerState.walk;
         animator = GetComponent<Animator>();
 
@@ -43,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
         score = 0;
         scoreText.text = "Score: " + score;
+        DisplayHighscore();
 
         ToepfeCount.text = "Toepfe uebrig: " + Toepfe;
     }
@@ -50,6 +84,31 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        switch(health){
+            case 0: break;
+            heart0.SetActive(false);
+            case 1: 
+            heart0.SetActive(true);
+            heart1.SetActive(false);
+            break;
+            case 2: 
+            heart1.SetActive(true);
+            heart2.SetActive(false);
+            break;
+            case 3: 
+            heart2.SetActive(true);
+            heart3.SetActive(false);
+            break;
+            case 4: 
+            heart3.SetActive(true);
+            heart4.SetActive(false);
+            break;
+            case 5: 
+            heart4.SetActive(true);
+            break;
+        }
+
+
         scoreText.text = "Score: " + score;
 
         Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
@@ -115,10 +174,18 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
+    private IEnumerator Wait() {
+        yield return new WaitForSeconds(1.0f);
+        
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     public void HitPlayer() {
         health--;
         Debug.Log("HealthPlayer subtracted, total: " + health);
         if (health == 0) {
+            HighscoreUpdate();
             Debug.Log("Player Dead");
             Time.timeScale = 0f;
             youDiedUI.SetActive(true);
@@ -128,12 +195,50 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void HealPlayer() {
-        health++;
+        if (health < 5) {
+            health++;
+            }
         Debug.Log("HealthPlayer added, total: " + health);
     }
 
-    private IEnumerator Wait() {
-        yield return new WaitForSeconds(1.0f);
-        
+    public int getHealth() {
+        return health;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void DisplayHighscore()
+    {
+        //Read the text from directly from the .txt file
+        var line = File.ReadAllLines(path);
+
+        highscoreText.text = "Highscore: " + line[0];
+    }
+
+    public void HighscoreUpdate()
+    {
+        //Read the text from directly from the .txt file
+        var line = File.ReadAllLines(path);
+        List<string> scores = line.ToList();
+
+        var p = score.ToString();
+        if (!scores.Contains(p))
+        {
+            scores.Add(p);
+        }
+            
+        string[] strings = scores.ToArray();
+        int[] ints = Array.ConvertAll(strings, int.Parse);
+            
+        Array.Sort(ints);
+        Array.Reverse(ints);
+            
+        line = new string[3];
+        for (int i = 0; i < 3; i++)
+        {
+            line[i] = ints[i].ToString();
+        }
+            
+        File.WriteAllLines(path, line);
     }
 }
