@@ -85,8 +85,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         switch(health){
-            case 0: break;
+            case 0: 
             heart0.SetActive(false);
+            break;
             case 1: 
             heart0.SetActive(true);
             heart1.SetActive(false);

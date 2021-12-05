@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
+    private AudioSource sound;
+    private GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
+        sound = player.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,6 +24,7 @@ public class PlayerHit : MonoBehaviour
     {
         if (other.CompareTag("breakable")) {
             other.GetComponent<pot>().Smash();
+            sound.Play();
         }
 
         if (other.CompareTag("Enemy")) {
