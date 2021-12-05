@@ -7,6 +7,8 @@ public class Timer : MonoBehaviour
 {
     private TextMeshProUGUI TimerText;
     public float startTime;
+    public float startTimer;
+    public float time;
     private bool started = false;
     private bool finnished = false;
     public PlayerMovement player;
@@ -24,14 +26,16 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time += Time.deltaTime;
+        
         if (started)
         {
             if (finnished){
                 return;
             }
-                
 
-            t =  startTime - Time.time;
+            t = startTimer - time;
+            
 
             string minutes = ((int)t / 60).ToString();
             string seconds = (t % 60).ToString("f0");
@@ -40,19 +44,26 @@ public class Timer : MonoBehaviour
 
              if (t <= 0)
              {
-                finnished = true;
-                player.Die();
+                Finnish();
+                player.Die();               
              }
         }
     }
 
+    public void resetTimer() {
+        startTimer = time + startTime;
+    }
+
     public void StartTime() 
     {
+        resetTimer();
         started = true;
+        finnished = false;
     }
 
     public void Finnish()
     {
+        started = false;
         finnished = true;
         TimerText.fontSize = 60;
         TimerText.color = Color.green;
