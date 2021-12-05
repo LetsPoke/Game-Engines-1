@@ -1262,7 +1262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820a23248892cec47b490b1a84f119c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   rb: {fileID: 141649600}
   animator: {fileID: 141649598}
   currentState: 0
@@ -9506,7 +9505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ee0ffb3a948454fb1a524eaba54acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 10
+  startTime: 300
   startTimer: 0
   time: 0
   player: {fileID: 0}

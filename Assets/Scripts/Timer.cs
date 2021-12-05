@@ -65,7 +65,7 @@ public class Timer : MonoBehaviour
     {
         started = false;
         finnished = true;
-        TimerText.fontSize = 60;
+        //TimerText.fontSize = 60;
         TimerText.color = Color.green;
     }
 }

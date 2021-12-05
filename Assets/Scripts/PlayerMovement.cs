@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject heart4;
 
 
-    public float moveSpeed = 5f;
+    private float moveSpeed;
 
     public Rigidbody2D rb;
     public Animator animator;
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (currentState == PlayerState.walk)
         {
-            moveSpeed = 5f;
+            moveSpeed = 3.75f;
             UpdateAnimationAndMove();
         }
 
