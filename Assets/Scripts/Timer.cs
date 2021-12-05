@@ -9,6 +9,8 @@ public class Timer : MonoBehaviour
     public float startTime;
     private bool started = false;
     private bool finnished = false;
+    public PlayerMovement player;
+
     public static float t; // bad coding style but ok for 2 variables
 
     // Start is called before the first frame update
@@ -16,6 +18,7 @@ public class Timer : MonoBehaviour
     {
         TimerText = GetComponent<TextMeshProUGUI>();
         StartTime();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -36,9 +39,10 @@ public class Timer : MonoBehaviour
             TimerText.text = minutes + ":" + seconds;
 
              if (t <= 0)
-            {
+             {
                 finnished = true;
-            }
+                player.Die();
+             }
         }
     }
 

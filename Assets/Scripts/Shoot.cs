@@ -6,7 +6,7 @@ public class Shoot : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject ArrowPrefab;
-    public float shootDelay = 1f;
+    public float shootDelay;
     public float arrowMovement = 20f;
 
     public void Update()

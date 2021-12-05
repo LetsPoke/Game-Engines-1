@@ -121,9 +121,7 @@ public class PlayerMovement : MonoBehaviour
         if (health == 0) {
             Debug.Log("Player Dead");
             Time.timeScale = 0f;
-            youDiedUI.SetActive(true);
-            StartCoroutine(Wait());
-            SceneManager.LoadScene("StartMenu");
+            Die();
         }
     }
 
@@ -135,5 +133,11 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator Wait() {
         yield return new WaitForSeconds(1.0f);
         
+    }
+
+    public void Die() {
+        StartCoroutine(Wait());
+        SceneManager.LoadScene("StartMenu");
+        youDiedUI.SetActive(true);
     }
 }
