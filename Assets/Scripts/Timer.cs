@@ -44,6 +44,7 @@ public class Timer : MonoBehaviour
 
              if (t <= 0)
              {
+                player.becauseText.text = "because: Time Over";
                 Finnish();
                 player.Die();               
              }

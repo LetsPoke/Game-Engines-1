@@ -48,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
 
     GameObject youDiedUI;
+    public Text becauseText;
+    public Text scoreT;
 
     void Start(){
         path = "Assets/Scenes/HighScore.txt";
@@ -71,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
 
         youDiedUI = GameObject.FindGameObjectWithTag("dead");
         youDiedUI.SetActive(false);
+
+        //becauseText = GameObject.FindGameObjectWithTag("becauseT");
+        //scoreT = GameObject.FindGameObjectWithTag("scoreT");
 
         Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
 
@@ -186,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
         health--;
         Debug.Log("HealthPlayer subtracted, total: " + health);
         if (health == 0) {
+            becauseText.text = "because: Health Over";
             HighscoreUpdate();
             Debug.Log("Player Dead");
             Time.timeScale = 0f;
@@ -242,8 +248,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void Die() {
-        StartCoroutine(Wait());
-        SceneManager.LoadScene("StartMenu");
+        scoreT.text = "score: " + score;
         youDiedUI.SetActive(true);
     }
 }
