@@ -16,3 +16,7 @@ um dieses ziel zu erreichen hat kevin ein schwert und einen bogen mit magischen 
 
 da kevin alle töpfe zerstören will die er sieht egal wem sie gehören, kann ihn natürlich niemand leiden. 
 daher versucht jeder ihm den hintern zu versohlen also pass auf wem oder was du begenest. 
+
+wir wünschen dir/euch viel spaß beim spielen und stellen euch hier für speedrunner die map zur verfügung.
+
+![cooles_spiel4](https://user-images.githubusercontent.com/59581396/145070253-79ccf392-10c7-403a-bac0-f54a2ef22013.PNG)
