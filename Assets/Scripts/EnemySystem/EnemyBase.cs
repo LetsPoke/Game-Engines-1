@@ -8,6 +8,8 @@ public class EnemyBase : MonoBehaviour
     public int baseAttack;
     public float moveSpeed;
     //public Vector3 initialSpawnPoint;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,7 @@ public class EnemyBase : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "Player") {
             collision.collider.GetComponent<PlayerMovement>().HitPlayer();
+            
         }
     }
 

@@ -15,6 +15,8 @@ public class LogEnemy : EnemyBase
 
     private Vector3 initialSpawnPoint;
 
+    
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

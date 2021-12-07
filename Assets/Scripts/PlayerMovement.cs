@@ -50,8 +50,13 @@ public class PlayerMovement : MonoBehaviour
     GameObject youDiedUI;
     public Text becauseText;
     public Text scoreT;
+    private AudioSource dmgsound;
+    private GameObject cam;
 
     void Start(){
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        dmgsound = cam.GetComponent<AudioSource>();
+
         path = "Assets/Scenes/HighScore.txt";
 
         heart0 = GameObject.Find("Player");
@@ -189,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void HitPlayer() {
         health--;
+        dmgsound.Play();
         Debug.Log("HealthPlayer subtracted, total: " + health);
         if (health == 0) {
             becauseText.text = "because: Health Over";
