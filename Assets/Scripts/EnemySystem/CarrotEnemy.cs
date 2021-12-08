@@ -17,7 +17,7 @@ public class CarrotEnemy : EnemyBase
        
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Vector3 direction = player.position - transform.position;
         

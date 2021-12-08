@@ -25,7 +25,7 @@ public class LogEnemy : EnemyBase
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Vector3 direction = player.position - transform.position;
         Vector3 spawnDirection = initialSpawnPoint - transform.position;

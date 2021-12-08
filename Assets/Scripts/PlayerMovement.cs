@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
-using UnityEditor.VersionControl;
+//using UnityEditor.VersionControl;
 
 public enum PlayerState{
     walk,
