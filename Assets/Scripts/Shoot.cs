@@ -8,8 +8,13 @@ public class Shoot : MonoBehaviour
     public GameObject ArrowPrefab;
     public float shootDelay;
     public float arrowMovement = 20f;
-
+    public bool canShoot;
+    public void Start()
+    {
+        canShoot = true;
+    }
     public void Update() {
+
         if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -27,8 +32,9 @@ public class Shoot : MonoBehaviour
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        if (Input.GetButtonDown("attackBow")) 
+        if (Input.GetButtonDown("attackBow") && canShoot == true) 
         {
+            canShoot = false;
             StartCoroutine(ShootDelay());
         }
     }
@@ -42,5 +48,9 @@ public class Shoot : MonoBehaviour
         GameObject arrow = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation);    // spawning Arrow at firePoint
         Rigidbody2D arrowbody = arrow.GetComponent<Rigidbody2D>();                              // Get the body of this arrow
         arrowbody.AddForce(firePoint.up * arrowMovement, ForceMode2D.Impulse);                  // Give Arrow Force
+    }
+
+    public void canShootagain() {
+        canShoot = true;
     }
 }

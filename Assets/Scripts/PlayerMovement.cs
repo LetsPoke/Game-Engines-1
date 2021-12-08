@@ -57,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource swordAttack;
 
     private Boolean canMove;
+    private Shoot shooting;
+    private GameObject player;
     void Start() {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         dmgsound = cam.GetComponent<AudioSource>();
@@ -96,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
         swordAttack = swordSoundObj.GetComponent<AudioSource>();
 
         canMove = true;
+        player = gameObject;
+        shooting = player.GetComponent<Shoot>();
     }
 
     // Update is called once per frame
@@ -200,6 +204,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("attackBow", false);
         currentState = PlayerState.walk;
         canMove = true;
+        shooting.canShootagain();
     }
 
     private void AttackBowCo()
