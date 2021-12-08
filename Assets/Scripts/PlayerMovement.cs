@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject swordSoundObj;
     private AudioSource swordAttack;
 
+    private Boolean canMove;
     void Start() {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         dmgsound = cam.GetComponent<AudioSource>();
@@ -93,6 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
         swordSoundObj = GameObject.Find("swordAttack Sound");
         swordAttack = swordSoundObj.GetComponent<AudioSource>();
+
+        canMove = true;
     }
 
     // Update is called once per frame
@@ -131,22 +134,32 @@ public class PlayerMovement : MonoBehaviour
         
         movement.x = Input.GetAxisRaw("Horizontal"); //input
         movement.y = Input.GetAxisRaw("Vertical");
-        
-        if(Input.GetButtonDown("attack") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
-        { 
-            StartCoroutine(AttackCo());
-        } 
-        else if (Input.GetButtonDown("attackBow") && currentState != PlayerState.attack && currentState != PlayerState.attackBow) {
-            StartCoroutine(AttackBowCo());
+
+        if (Input.GetButtonDown("attack") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
+        {
+            currentState = PlayerState.attack;
+            canMove = false;
+            animator.SetBool("moving", false);
             moveSpeed = 0f;
-        } 
-        else if (currentState == PlayerState.walk){
+            AttackCo();
+        }
+        else if (Input.GetButtonDown("attackBow") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
+        {
+            currentState = PlayerState.attackBow;
+            canMove = false;
+            animator.SetBool("moving", false);
+            moveSpeed = 0f;
+            AttackBowCo();
+        }
+        else if (currentState == PlayerState.walk)
+        {
             moveSpeed = 3.75f;
             UpdateAnimationAndMove();
         }
         UpdateAnimationAndMove();
 
-        if (Toepfe == 0) {
+        if (Toepfe == 0)
+        {
             Time.timeScale = 0f;
             uiWin.SetActive(true);
         }
@@ -155,41 +168,43 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
-    void UpdateAnimationAndMove() {
-        if(movement != Vector2.zero) {
+    void UpdateAnimationAndMove()
+    {
+        if (movement != Vector2.zero && canMove == true)
+        {
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
-            //animator.SetFloat("Speed", movement.sqrMagnitude);
+
             animator.SetBool("moving", true);
-        } 
-        else {
+        }
+        else
+        {
             animator.SetBool("moving", false);
         }
     }
-    public void EndAttack(){
-        Debug.Log("end wurde aufgerufen");
+    void EndAttack()
+    {
         animator.SetBool("attacking", false);
-    }
-    private IEnumerator AttackCo() {    
-        animator.SetBool("attacking", true);
-        swordAttack.Play();
-        currentState = PlayerState.attack;
-        yield return null;
-        animator.SetBool("attacking", false);
-        //yield return new WaitForSeconds(0.5f);
         currentState = PlayerState.walk;
+        canMove = true;
     }
 
-    private IEnumerator AttackBowCo() {
-        animator.SetBool("attackBow", true);
-        currentState = PlayerState.attackBow;
-        yield return null;
-        animator.SetBool("attackBow", false);
-        yield return new WaitForSeconds(0.6f);
-        currentState = PlayerState.walk;
+    private void AttackCo()
+    {
+        swordAttack.Play();
+        animator.SetBool("attacking", true);
     }
-    private IEnumerator Wait() {
-        yield return new WaitForSeconds(1.0f);     
+
+    void EndAttackBow()
+    {
+        animator.SetBool("attackBow", false);
+        currentState = PlayerState.walk;
+        canMove = true;
+    }
+
+    private void AttackBowCo()
+    {
+        animator.SetBool("attackBow", true);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
