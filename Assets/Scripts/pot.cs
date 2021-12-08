@@ -7,44 +7,30 @@ public class pot : MonoBehaviour
 {
     private Animator anim;
     public UpgradeSpawner upgrade;
-    //public int score = 0;
-    //public Text scoreText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         anim = GetComponent<Animator>();
-        //scoreText.text = "Score: " + score;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //scoreText.text = "Score: " + score;
+    void Update() {
+
     }
 
-    public void Smash() 
-    {
-        anim.SetBool("smash", true);
+    public void Smash() {        // Methode wenn der pot getroffen wird
+        anim.SetBool("smash", true);    
         PlayerMovement.score = PlayerMovement.score + (((int)Timer.t/60)+1);
         StartCoroutine(breakCo());
 
         int random = Random.Range(1, 100);
-        //Debug.Log(random);
 
-        if(random <= 33){
+        if(random <= 33) {
             Vector3 currentPos = transform.position;
             upgrade.SpawnHealth(currentPos);
-        }
-        
+        }       
     }
 
-    IEnumerator breakCo() 
-    {
-        
+    IEnumerator breakCo() {      // Enumerator für WaitForSeconds     
         yield return new WaitForSeconds(.3f);
-        //score = score +1;
-        this.gameObject.SetActive(false);
-        
+        this.gameObject.SetActive(false);        
     }
 }

@@ -22,8 +22,7 @@ public class MenuManger : MonoBehaviour
     AudioSource audioPausenMenu;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         menu = GameObject.FindGameObjectWithTag("UI_StartMenu");
         helpUI = GameObject.FindGameObjectWithTag("UI_Help");
         settingsUI = GameObject.FindGameObjectWithTag("UI_Settings");
@@ -42,8 +41,7 @@ public class MenuManger : MonoBehaviour
         audioPausenMenu.mute = true;
 
         musicIsOn = StartMenu.MusicIsOn; 
-        if (!musicIsOn)  // musik aus
-        {
+        if (!musicIsOn) {             // musik aus
            audioGame.mute = true;
            musicIsOn = false;
            musicON.SetActive(false);
@@ -52,103 +50,84 @@ public class MenuManger : MonoBehaviour
       
     }
 
-    // Update is called once per frame
-    void Update()
-    {   
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (gameIsPaused)
-                {
+    void Update() {   
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                if (gameIsPaused) {
                     Resume(); 
                 }
-                else   // pause
-                {
+                else {                 
                     Pause();
                 }
             }
     }
 
-    public void Resume()
-    {
+    public void Resume() {
         menu.SetActive(false);
         helpUI.SetActive(false);
         settingsUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
-        if(musicIsOn) 
-        {
+        if(musicIsOn) {
             audioGame.mute = false;
             audioPausenMenu.mute = true;
         }
     }
 
-    public void Pause()
-    {
+    public void Pause() {
         menu.SetActive(true);
         Time.timeScale = 0;
         gameIsPaused = true;
-        if(musicIsOn) 
-        {
+        if(musicIsOn) {
             audioGame.mute = true;
             audioPausenMenu.mute = false;
         }
     }
 
-    public void Restart()
-    {
+    public void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
         gameIsPaused = false;
 
-        if(musicIsOn) 
-        {
+        if(musicIsOn) {
             audioGame.mute = false;
             audioPausenMenu.mute = true;
         }
     }
 
-    public void Exit()
-    {
+    public void Exit() {
         Debug.Log("Das Game übergibt dem Startmenü: " + MusicIsOnGame);
         SceneManager.LoadScene("StartMenu");
     }
 
-    public void Help()
-    {
+    public void Help() {
         helpUI.SetActive(true);
     }
 
-    public void Settings()
-    {
+    public void Settings() {
         settingsUI.SetActive(true);
         if (musicIsOn) {
             musicON.SetActive(true);
         }
-        else{
+        else {
             musicOFF.SetActive(true);
         }
     }
 
     // Settings & Help UIS
-    public void Home()
-    {
+    public void Home() {
         settingsUI.SetActive(false);
         helpUI.SetActive(false);
     }
 
-    public void Music()
-    {
-        if(musicIsOn)
-        {
+    public void Music() {
+        if(musicIsOn) {
             // -> Musik ausschalten
             musicOFF.SetActive(true);
             musicON.SetActive(false);
             musicIsOn = false; 
             audioPausenMenu.mute = true;
         }
-        else
-        {
+        else {
             // -> Musik anschalten
             musicON.SetActive(true);
             musicOFF.SetActive(false);
@@ -157,12 +136,9 @@ public class MenuManger : MonoBehaviour
         }
     }
 
-    public static bool MusicIsOnGame
-    { 
+    public static bool MusicIsOnGame { 
         get { return musicIsOn; }
-        //set { name = value; }
     }
-
 }
 
    

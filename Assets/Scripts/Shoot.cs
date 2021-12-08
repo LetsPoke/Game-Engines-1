@@ -9,8 +9,7 @@ public class Shoot : MonoBehaviour
     public float shootDelay;
     public float arrowMovement = 20f;
 
-    public void Update()
-    {
+    public void Update() {
         if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -23,25 +22,23 @@ public class Shoot : MonoBehaviour
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
-        else if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow))
+        else if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow)) 
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        if (Input.GetButtonDown("attackBow"))
+        if (Input.GetButtonDown("attackBow")) 
         {
             StartCoroutine(ShootDelay());
         }
     }
 
-    private IEnumerator ShootDelay()
-    {
+    private IEnumerator ShootDelay() {
         yield return new WaitForSeconds(shootDelay);
         Shooting();
     }
 
-    void Shooting() 
-    {
+    void Shooting() {
         GameObject arrow = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation);    // spawning Arrow at firePoint
         Rigidbody2D arrowbody = arrow.GetComponent<Rigidbody2D>();                              // Get the body of this arrow
         arrowbody.AddForce(firePoint.up * arrowMovement, ForceMode2D.Impulse);                  // Give Arrow Force

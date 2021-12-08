@@ -17,10 +17,7 @@ public class StartMenu : MonoBehaviour
     public MenuManger menumanager;
     AudioSource sound;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         menu = GameObject.FindGameObjectWithTag("UI_StartMenu");
         helpUI = GameObject.FindGameObjectWithTag("UI_Help");
         settingsUI = GameObject.FindGameObjectWithTag("UI_Settings");
@@ -38,50 +35,41 @@ public class StartMenu : MonoBehaviour
         SetMusicStatus(musicIsOn);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
  
     }
 
-    public void StartGame()
-    {
+    public void StartGame() {
         Debug.Log("Das Startmenu übergibt dem Game: " + MusicIsOn);
         SceneManager.LoadScene("GameScene");
         Time.timeScale = 1f;
     }
 
-    public void Help()
-    {
+    public void Help() {
         helpUI.SetActive(true);
     }
 
-    public void Quit()
-    {
+    public void Quit() {
         Application.Quit();
     }
 
-    public void Settings()
-    {
+    public void Settings() {
         settingsUI.SetActive(true);
     }
 
     // Settings & Help UIS
-    public void Home()
-    {
+    public void Home() {
         settingsUI.SetActive(false);
         helpUI.SetActive(false);
     }
 
     public void Music()
     {
-        if(musicIsOn)
-        {
+        if(musicIsOn) {
             // Musik an -> also ausschalten
             SetMusicStatus(false);
         }
-        else
-        {
+        else {
             // Musik aus -> also anschalten
             SetMusicStatus(true);
         }
@@ -89,16 +77,13 @@ public class StartMenu : MonoBehaviour
 
     public void SetMusicStatus(bool statusMusicOn){
         
-        if (statusMusicOn) // Musik ist an
-        {
+        if (statusMusicOn) {            // Musik ist an
             musicIsOn = true;
             sound.mute = false;
             musicON.SetActive(true);
             musicOFF.SetActive(false);
         }
-
-        else // Musik ist aus
-        {
+        else {                          // Musik ist aus
             musicIsOn = false;
             sound.mute = true;
             musicON.SetActive(false);
@@ -107,10 +92,8 @@ public class StartMenu : MonoBehaviour
         
     }
 
-    public static bool MusicIsOn
-    { 
+    public static bool MusicIsOn { 
         get { return musicIsOn; }
-        //set { name = value; }
     }
 
 }

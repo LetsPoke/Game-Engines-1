@@ -13,24 +13,19 @@ public class Timer : MonoBehaviour
     private bool finnished = false;
     public PlayerMovement player;
 
-    public static float t; // bad coding style but ok for 2 variables
+    public static float t;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         TimerText = GetComponent<TextMeshProUGUI>();
         StartTime();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         time += Time.deltaTime;
         
-        if (started)
-        {
-            if (finnished){
+        if (started) {
+            if (finnished) {
                 return;
             }
 
@@ -42,8 +37,7 @@ public class Timer : MonoBehaviour
 
             TimerText.text = minutes + ":" + seconds;
 
-             if (t <= 0)
-             {
+             if (t <= 0) {
                 player.becauseText.text = "because: Time Over";
                 Finnish();
                 player.Die();               
@@ -55,18 +49,15 @@ public class Timer : MonoBehaviour
         startTimer = time + startTime;
     }
 
-    public void StartTime() 
-    {
+    public void StartTime() {
         resetTimer();
         started = true;
         finnished = false;
     }
 
-    public void Finnish()
-    {
+    public void Finnish() {
         started = false;
         finnished = true;
-        //TimerText.fontSize = 60;
         TimerText.color = Color.green;
     }
 }

@@ -19,7 +19,6 @@ public enum PlayerState{
 
 public class PlayerMovement : MonoBehaviour
 {
-
     private GameObject heart0;
     private GameObject heart1;
     private GameObject heart2;
@@ -53,7 +52,10 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource dmgsound;
     private GameObject cam;
 
-    void Start(){
+    private GameObject swordSoundObj;
+    private AudioSource swordAttack;
+
+    void Start() {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         dmgsound = cam.GetComponent<AudioSource>();
 
@@ -71,16 +73,11 @@ public class PlayerMovement : MonoBehaviour
         heart3.SetActive(true);
         heart4.SetActive(true);
 
-
-
         currentState = PlayerState.walk;
         animator = GetComponent<Animator>();
 
         youDiedUI = GameObject.FindGameObjectWithTag("dead");
         youDiedUI.SetActive(false);
-
-        //becauseText = GameObject.FindGameObjectWithTag("becauseT");
-        //scoreT = GameObject.FindGameObjectWithTag("scoreT");
 
         Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
 
@@ -89,12 +86,14 @@ public class PlayerMovement : MonoBehaviour
         DisplayHighscore();
 
         ToepfeCount.text = "Toepfe uebrig: " + Toepfe;
+
+        swordSoundObj = GameObject.Find("swordAttack Sound");
+        swordAttack = swordSoundObj.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        switch(health){
+    void Update() {
+        switch(health) {
             case 0: 
             heart0.SetActive(false);
             break;
@@ -119,13 +118,12 @@ public class PlayerMovement : MonoBehaviour
             break;
         }
 
-
         scoreText.text = "Score: " + score;
 
         Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
         ToepfeCount.text = "Toepfe uebrig: " + Toepfe;
-        //input
-        movement.x = Input.GetAxisRaw("Horizontal");
+        
+        movement.x = Input.GetAxisRaw("Horizontal"); //input
         movement.y = Input.GetAxisRaw("Vertical");
         
         if(Input.GetButtonDown("attack") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
@@ -145,23 +143,24 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = 3.75f;
             UpdateAnimationAndMove();
         }
-
         UpdateAnimationAndMove();
     }
 
-    void UpdateAnimationAndMove(){
-        if(movement != Vector2.zero){
+    void UpdateAnimationAndMove() {
+        if(movement != Vector2.zero) {
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
             //animator.SetFloat("Speed", movement.sqrMagnitude);
             animator.SetBool("moving", true);
-        }else{
+        } 
+        else {
             animator.SetBool("moving", false);
         }
     }
 
-    private IEnumerator AttackCo(){
+    private IEnumerator AttackCo() {    
         animator.SetBool("attacking", true);
+        swordAttack.Play();
         currentState = PlayerState.attack;
         yield return null;
         animator.SetBool("attacking", false);
@@ -169,8 +168,7 @@ public class PlayerMovement : MonoBehaviour
         currentState = PlayerState.walk;
     }
 
-    private IEnumerator AttackBowCo()
-    {
+    private IEnumerator AttackBowCo() {
         animator.SetBool("attackBow", true);
         currentState = PlayerState.attackBow;
         yield return null;
@@ -179,15 +177,13 @@ public class PlayerMovement : MonoBehaviour
         currentState = PlayerState.walk;
     }
 
-    void FixedUpdate(){
-        //Movement
+    void FixedUpdate() {            //Movement            
         movement.Normalize();
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     private IEnumerator Wait() {
-        yield return new WaitForSeconds(1.0f);
-        
+        yield return new WaitForSeconds(1.0f);     
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
     public void HealPlayer() {
         if (health < 5) {
             health++;
-            }
+        }
         Debug.Log("HealthPlayer added, total: " + health);
     }
 
@@ -218,23 +214,18 @@ public class PlayerMovement : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void DisplayHighscore()
-    {
-        //Read the text from directly from the .txt file
-        var line = File.ReadAllLines(path);
-
+    private void DisplayHighscore() {     
+        var line = File.ReadAllLines(path);         //Read the text from directly from the .txt file
         highscoreText.text = "Highscore: " + line[0];
     }
 
-    public void HighscoreUpdate()
-    {
+    public void HighscoreUpdate() {
         //Read the text from directly from the .txt file
         var line = File.ReadAllLines(path);
         List<string> scores = line.ToList();
 
         var p = score.ToString();
-        if (!scores.Contains(p))
-        {
+        if (!scores.Contains(p)) {
             scores.Add(p);
         }
             
@@ -245,14 +236,14 @@ public class PlayerMovement : MonoBehaviour
         Array.Reverse(ints);
             
         line = new string[3];
-        for (int i = 0; i < 3; i++)
-        {
+        for (int i = 0; i < 3; i++) {
             line[i] = ints[i].ToString();
         }
-            
+        
         File.WriteAllLines(path, line);
     }
 
+    // Eine Methode für das beenden des Games
     public void Die() {
         scoreT.text = "score: " + score;
         youDiedUI.SetActive(true);
