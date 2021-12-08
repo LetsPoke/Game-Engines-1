@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     public string highscore;
     public Text highscoreText;
-    private string path;
+    //private string path;
     
     public Text ToepfeCount;
 
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         dmgsound = cam.GetComponent<AudioSource>();
 
-        path = "Assets/Scenes/HighScore.txt";
+        //path = "Assets/Scenes/HighScore.txt";
 
         heart0 = GameObject.Find("Player");
         heart1 = GameObject.Find("heart (1)");
@@ -97,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        HighscoreUpdate();
+
         switch(health) {
             case 0: 
             heart0.SetActive(false);
@@ -133,17 +135,12 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("attack") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
         { 
             StartCoroutine(AttackCo());
-        } else if(currentState == PlayerState.walk){
-            UpdateAnimationAndMove();
-        }
-
-        if (Input.GetButtonDown("attackBow") && currentState != PlayerState.attack && currentState != PlayerState.attackBow)
-        {
+        } 
+        else if (Input.GetButtonDown("attackBow") && currentState != PlayerState.attack && currentState != PlayerState.attackBow) {
             StartCoroutine(AttackBowCo());
-            moveSpeed = 0f; 
-        }
-        else if (currentState == PlayerState.walk)
-        {
+            moveSpeed = 0f;
+        } 
+        else if (currentState == PlayerState.walk){
             moveSpeed = 3.75f;
             UpdateAnimationAndMove();
         }
@@ -169,14 +166,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("moving", false);
         }
     }
-
+    public void EndAttack(){
+        Debug.Log("end wurde aufgerufen");
+        animator.SetBool("attacking", false);
+    }
     private IEnumerator AttackCo() {    
         animator.SetBool("attacking", true);
         swordAttack.Play();
         currentState = PlayerState.attack;
         yield return null;
         animator.SetBool("attacking", false);
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         currentState = PlayerState.walk;
     }
 
@@ -221,34 +221,21 @@ public class PlayerMovement : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void DisplayHighscore() {     
-        var line = File.ReadAllLines(path);         //Read the text from directly from the .txt file
-        highscoreText.text = "Highscore: " + line[0];
+        if(PlayerPrefs.HasKey("highscore")){
+            highscoreText.text = "Highscore: " + PlayerPrefs.GetInt("highscore");
+        }else{
+            highscoreText.text = "Highscore: " + 0;
+            PlayerPrefs.SetInt("highscore", 0);
+            PlayerPrefs.Save();
+        }
     }
 
     public void HighscoreUpdate() {
-        //Read the text from directly from the .txt file
-        var line = File.ReadAllLines(path);
-        List<string> scores = line.ToList();
-
-        var p = score.ToString();
-        if (!scores.Contains(p)) {
-            scores.Add(p);
+        if(score > PlayerPrefs.GetInt("highscore")){
+            PlayerPrefs.SetInt("highscore", score);
         }
-            
-        string[] strings = scores.ToArray();
-        int[] ints = Array.ConvertAll(strings, int.Parse);
-            
-        Array.Sort(ints);
-        Array.Reverse(ints);
-            
-        line = new string[3];
-        for (int i = 0; i < 3; i++) {
-            line[i] = ints[i].ToString();
-        }
-        
-        File.WriteAllLines(path, line);
+        PlayerPrefs.Save();
     }
-
     // Eine Methode für das beenden des Games
     public void Die() {
         scoreT.text = "score: " + score;
