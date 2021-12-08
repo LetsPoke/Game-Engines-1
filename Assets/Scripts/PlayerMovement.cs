@@ -153,6 +153,9 @@ public class PlayerMovement : MonoBehaviour
             Time.timeScale = 0f;
             uiWin.SetActive(true);
         }
+
+        movement.Normalize();
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     void UpdateAnimationAndMove() {
@@ -185,12 +188,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         currentState = PlayerState.walk;
     }
-
-    void FixedUpdate() {            //Movement            
-        movement.Normalize();
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-    }
-
     private IEnumerator Wait() {
         yield return new WaitForSeconds(1.0f);     
     }

@@ -25,7 +25,7 @@ public class LogEnemy : EnemyBase
         
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Vector3 direction = player.position - transform.position;
         Vector3 spawnDirection = initialSpawnPoint - transform.position;
@@ -70,7 +70,7 @@ public class LogEnemy : EnemyBase
         moveSpeed = 0;
         anim.SetBool("sleeping", false);
         anim.SetBool("walking", true);
-        moveSpeed = 20;
+        moveSpeed = 3;
     }
 
     void goSleep()
