@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
 
     GameObject youDiedUI;
+    GameObject uiWin;
     public Text becauseText;
     public Text scoreT;
     private AudioSource dmgsound;
@@ -78,6 +79,9 @@ public class PlayerMovement : MonoBehaviour
 
         youDiedUI = GameObject.FindGameObjectWithTag("dead");
         youDiedUI.SetActive(false);
+
+        uiWin = GameObject.FindGameObjectWithTag("win");
+        uiWin.SetActive(false);
 
         Toepfe = GameObject.FindGameObjectsWithTag("breakable").Length;
 
@@ -144,6 +148,11 @@ public class PlayerMovement : MonoBehaviour
             UpdateAnimationAndMove();
         }
         UpdateAnimationAndMove();
+
+        if (Toepfe == 0) {
+            Time.timeScale = 0f;
+            uiWin.SetActive(true);
+        }
     }
 
     void UpdateAnimationAndMove() {
@@ -248,4 +257,5 @@ public class PlayerMovement : MonoBehaviour
         scoreT.text = "score: " + score;
         youDiedUI.SetActive(true);
     }
+
 }

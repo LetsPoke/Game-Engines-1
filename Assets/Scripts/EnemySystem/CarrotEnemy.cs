@@ -32,4 +32,5 @@ public class CarrotEnemy : EnemyBase
         Gizmos.DrawWireSphere(transform.position, chaseRadius);
         Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
+
 }

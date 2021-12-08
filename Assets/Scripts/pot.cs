@@ -23,7 +23,7 @@ public class pot : MonoBehaviour
 
         int random = Random.Range(1, 100);
 
-        if(random <= 33) {
+        if(random <= 20) {
             Vector3 currentPos = transform.position;
             upgrade.SpawnHealth(currentPos);
         }       

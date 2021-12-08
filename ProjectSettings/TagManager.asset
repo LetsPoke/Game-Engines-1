@@ -21,6 +21,7 @@ TagManager:
   - timerTag
   - becauseT
   - scoreT
+  - win
   layers:
   - Default
   - TransparentFX
