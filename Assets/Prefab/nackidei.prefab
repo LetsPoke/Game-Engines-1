@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   baseAttack: 0
-  moveSpeed: 2
+  moveSpeed: 4
   player: {fileID: 0}
   chaseRadius: 3
   attackRadius: 1
