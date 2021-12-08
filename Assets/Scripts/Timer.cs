@@ -2,10 +2,9 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 public class Timer : MonoBehaviour
 {
-    private TextMeshProUGUI TimerText;
+    private Text TimerText;
     public float startTime;
     public float startTimer;
     public float time;
@@ -16,7 +15,7 @@ public class Timer : MonoBehaviour
     public static float t;
 
     void Start() {
-        TimerText = GetComponent<TextMeshProUGUI>();
+        TimerText = GetComponent<Text>();
         StartTime();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
@@ -58,6 +57,5 @@ public class Timer : MonoBehaviour
     public void Finnish() {
         started = false;
         finnished = true;
-        TimerText.color = Color.green;
     }
 }
