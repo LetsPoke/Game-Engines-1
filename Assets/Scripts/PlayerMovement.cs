@@ -109,24 +109,44 @@ public class PlayerMovement : MonoBehaviour
         switch(health) {
             case 0: 
             heart0.SetActive(false);
+            heart1.SetActive(false);
+            heart2.SetActive(false);
+            heart3.SetActive(false);
+            heart4.SetActive(false);
             break;
             case 1: 
             heart0.SetActive(true);
             heart1.SetActive(false);
+            heart2.SetActive(false);
+            heart3.SetActive(false);
+            heart4.SetActive(false);
             break;
             case 2: 
+            heart0.SetActive(true);
             heart1.SetActive(true);
             heart2.SetActive(false);
+            heart3.SetActive(false);
+            heart4.SetActive(false);
             break;
             case 3: 
+            heart0.SetActive(true);
+            heart1.SetActive(true);
             heart2.SetActive(true);
             heart3.SetActive(false);
+            heart4.SetActive(false);
             break;
             case 4: 
+            heart0.SetActive(true);
+            heart1.SetActive(true);
+            heart2.SetActive(true);
             heart3.SetActive(true);
             heart4.SetActive(false);
             break;
             case 5: 
+            heart0.SetActive(true);
+            heart1.SetActive(true);
+            heart2.SetActive(true);
+            heart3.SetActive(true);
             heart4.SetActive(true);
             break;
         }
