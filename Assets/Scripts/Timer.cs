@@ -6,7 +6,7 @@ public class Timer : MonoBehaviour
 {
     private Text TimerText;
     public float startTime;
-    public float startTimer;
+    private float startTimer;
     public float time;
     private bool started = false;
     private bool finnished = false;

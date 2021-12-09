@@ -280,6 +280,7 @@ public class PlayerMovement : MonoBehaviour
     public void Die() {
         scoreT.text = "score: " + score;
         youDiedUI.SetActive(true);
+        Time.timeScale = 0;
     }
 
 }
